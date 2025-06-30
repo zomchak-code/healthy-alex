@@ -4,7 +4,7 @@
 
 ### Config 
 
-Set env variables, you can the them at [Upstach](https://upstash.com):
+Set env variables, you can the them at [Upstash](https://upstash.com):
 - `UPSTASH_REDIS_REST_URL`
 - `UPSTASH_REDIS_REST_TOKEN`
 

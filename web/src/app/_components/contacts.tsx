@@ -13,9 +13,9 @@ export function Contacts({ name }: { name: string }) {
   const timeout = useRef<NodeJS.Timeout>(null);
 
   const handleCopy = (email: string) => {
-    navigator.clipboard.writeText(email);
+    void navigator.clipboard.writeText(email);
     setCopied(email);
-    timeout.current && clearTimeout(timeout.current);
+    if (timeout.current) clearTimeout(timeout.current);
     timeout.current = setTimeout(() => setCopied(''), 2000);
   };
 

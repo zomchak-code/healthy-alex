@@ -138,13 +138,13 @@ export default function Home() {
   function setTopic({ fieldId, subfieldId }: {
     fieldId?: string | null, subfieldId?: string | null
   }) {
-    setTopicId(null);
-    setSubfieldId(null);
+    void setTopicId(null);
+    void setSubfieldId(null);
     if (fieldId !== undefined) {
-      setFieldId(fieldId);
+      void setFieldId(fieldId);
     }
     if (subfieldId) {
-      setSubfieldId(subfieldId);
+      void setSubfieldId(subfieldId);
     }
   }
 

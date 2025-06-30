@@ -6,6 +6,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import Link from "next/link";
 import { Heart } from "lucide-react";
 import { ThemeProvider } from "~/app/_components/theme-provider"
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Healthy Alex",
@@ -27,7 +28,9 @@ export default function RootLayout({
                   <Heart /> Healthy Alex
                 </Link>
                 <div className="min-h-0">
-                  {children}
+                  <Suspense>
+                    {children}
+                  </Suspense>
                 </div>
               </div>
             </ThemeProvider>
