@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 from app.works.work_service import Work, WorksResponse
 from app.model.model import Item
+from app.alex.api import ALEX_BASE_URL
 
 
 class PersonTopic(BaseModel):
@@ -45,13 +46,15 @@ def get_authors(works: list[Work]):
 
 class PersonService:
     def get_people(self, topic_type: str, topic_id: str):
-        url = f"https://api.openalex.org/works?filter={topic_type}.id:{topic_id}&per_page=200"
-        res = requests.get(url)
+        res = requests.get(
+            f"{ALEX_BASE_URL}/works",
+            params={"filter": f"{topic_type}.id:{topic_id}", "per_page": 200},
+        )
         works_response = WorksResponse(**res.json())
         return get_authors(works_response.results)
 
     def get_person(self, id: str):
-        res = requests.get(f"https://api.openalex.org/people/{id}")
+        res = requests.get(f"{ALEX_BASE_URL}/people/{id}")
         person = PersonResponse(**res.json())
         res = requests.get(person.works_api_url + "&per_page=200")
         works = [Work(**w) for w in res.json()["results"]]

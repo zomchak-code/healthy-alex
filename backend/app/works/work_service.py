@@ -3,6 +3,7 @@ import requests
 from pydantic import BaseModel
 
 from app.model.model import Item
+from app.alex.api import ALEX_BASE_URL
 
 
 class Authorship(BaseModel):
@@ -32,7 +33,7 @@ class WorksResponse(BaseModel):
 
 class WorkService:
     def get(self, id):
-        res = requests.get(f"https://api.openalex.org/works/{id}")
+        res = requests.get(f"{ALEX_BASE_URL}/works/{id}")
         work = Work(**res.json())
         for authorship in work.authorships:
             authorship.author.id = authorship.author.id.split("/")[-1]

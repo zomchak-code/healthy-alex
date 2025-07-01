@@ -3,6 +3,7 @@ import requests
 from pydantic import BaseModel
 
 from app.model.model import Item
+from app.alex.api import ALEX_BASE_URL
 
 
 class DomainResponse(BaseModel):
@@ -26,11 +27,14 @@ class SubfieldResponse(BaseModel):
     works_api_url: str
 
 
+DEFAULT_DOMAIN_ID = 4
+
+
 class TopicService:
     def get_domain(self):
         start_time = time.time()
 
-        res = requests.get("https://api.openalex.org/domains/4")
+        res = requests.get(f"{ALEX_BASE_URL}/domains/{DEFAULT_DOMAIN_ID}")
         domain_response = DomainResponse(**res.json())
 
         end_time = time.time()
@@ -43,7 +47,7 @@ class TopicService:
         }
 
     def get_field(self, id: str):
-        res = requests.get(f"https://api.openalex.org/fields/{id}")
+        res = requests.get(f"{ALEX_BASE_URL}/fields/{id}")
         field = FieldResponse(**res.json())
 
         field.domain.id = field.domain.id.split("/")[-1]
@@ -60,7 +64,7 @@ class TopicService:
         }
 
     def get_subfield(self, id: str):
-        res = requests.get(f"https://api.openalex.org/subfields/{id}")
+        res = requests.get(f"{ALEX_BASE_URL}/subfields/{id}")
         subfield = SubfieldResponse(**res.json())
 
         subfield.field.id = subfield.field.id.split("/")[-1]
