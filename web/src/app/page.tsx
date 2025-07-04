@@ -32,6 +32,8 @@ function Loader() {
   );
 }
 
+const DEFAULT_DOMAIN_ID = '4';
+
 interface FieldSelectorProps {
   value: string | null;
   onValueChange: (value: string) => void;
@@ -122,7 +124,7 @@ export default function Home() {
     id = fieldId;
   } else {
     type += '.domain';
-    id = '4';
+    id = DEFAULT_DOMAIN_ID;
   }
 
   const getDomain = api.topics.getDomain.useQuery();

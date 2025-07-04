@@ -1,9 +1,15 @@
+import os
 import requests
 from pydantic import BaseModel
 
 from app.works.work_service import Work, WorksResponse
 from app.model.model import Item
 from app.alex.api import ALEX_BASE_URL
+
+CONTACT_API_URL = os.getenv(
+    "CONTACT_API_URL",
+    "https://techcenary--5284aba44de911f089f476b3cceeab13.web.val.run",
+)
 
 
 class PersonTopic(BaseModel):
@@ -71,9 +77,8 @@ class PersonService:
         }
 
     def find_contacts(self, name: str):
-        # Post with plain text body
         return requests.post(
-            "https://techcenary--5284aba44de911f089f476b3cceeab13.web.val.run",
+            CONTACT_API_URL,
             data=name,
         ).json()
 
